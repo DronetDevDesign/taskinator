@@ -4,13 +4,23 @@ var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 //contains the task function
-var createTaskHandler = function(event) {
+var taskFormHandler = function(event) {
   //prevent the browser from reloading
-  event.preventDefault();
+    event.preventDefault();
+    var taskNameInput = document.querySelector("input[name='task-name']").value;
+    var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
-  var taskNameInput = document.querySelector("input[name='task-name']").value;
-  var taskTypeInput = document.querySelector("select[name='task-type']").value;
+    // package up data as an object
+    var taskDataObj = {
+      name: taskNameInput,
+      type: taskTypeInput
+    };
 
+    // send it as an argument to createTaskEl
+    createTaskEl(taskDataObj);
+};
+
+var createTaskEl = function(taskDataObj) {
   // create "li"
   var listItemEl = document.createElement("li");
   listItemEl.className = "task-item";
@@ -22,7 +32,8 @@ var createTaskHandler = function(event) {
   taskInfoEl.className = "task-info";
 
   // add HTML content to div
-  taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameInput + "</h3><span class='task-type'>" + taskTypeInput + "</span>";
+  taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";;
+  
   listItemEl.appendChild(taskInfoEl);
   // append the "li" to the "ul"
 
@@ -31,4 +42,4 @@ var createTaskHandler = function(event) {
 };
 
 // function performed when the button is clicked
-formEl.addEventListener("submit", createTaskHandler);
+formEl.addEventListener("submit", taskFormHandler);
