@@ -1,10 +1,13 @@
 // button that adds tasks to the "ul"
-var buttonEl = document.querySelector("#save-task");
+var formEl = document.querySelector("#task-form");
 // variable created for the "ul"
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 //contains the task function
-var createTaskHandler = function() {
+var createTaskHandler = function(event) {
+  //prevent the browser from reloading
+  event.preventDefault();
+
   // create "li"
   var listItemEl = document.createElement("li");
   // target the "li" with the class "task-item"
@@ -16,4 +19,4 @@ var createTaskHandler = function() {
 };
 
 // function performed when the button is clicked
-buttonEl.addEventListener("click", createTaskHandler);
+formEl.addEventListener("submit", createTaskHandler);
